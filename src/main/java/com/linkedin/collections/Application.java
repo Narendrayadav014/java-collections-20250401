@@ -1,5 +1,8 @@
 package com.linkedin.collections;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Application {
 
 	public static void main(String[] args) {
@@ -8,6 +11,24 @@ public class Application {
 		Room oxford = new Room("Oxford", "Suite", 5, 225.0);
 		Room oxfordDuplicate = new Room("Oxford", "Suite", 5, 225.0);
 		Room victoria = new Room("Victoria", "Suite", 5, 225.00);
+
+		Set<Room> otherRooms = Set.of(piccadilly,oxford);
+		// otherRooms.add(victoria);	// will throw error as set is immutable 
+
+		Set<Room> rooms = new HashSet<>();
+		rooms.add(piccadilly);
+		rooms.add(oxford);
+		rooms.add(oxford);	//Set will remove this duplicate itself
+		rooms.add(oxfordDuplicate);
+		rooms.add(victoria);
+
+		Set<Room> moreRooms = Set.copyOf(rooms);
+		// moreRooms.add(victoria); // will throw error as set is immutable 
+
+		moreRooms.stream()
+		.map(r -> r.getName())
+		.forEach(System.out::println);
+
 
 		
 	}
